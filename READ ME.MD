@@ -8,15 +8,19 @@
 4. Install KUBECTL
 
 5. now run eks.yaml file to create the cluster
-   
+    
+    ## With yaml file
     > eksctl create cluster -f eks-cluster.yaml
+
+    ## Without yaml --waste
+    > eksctl create cluster --name= "name"  --nodes= 3
 
 6. Verify cluster creation:
 
     > eksctl get cluster
 
 7. Configure kubectl to use your new cluster:
-    
+    ## With yaml file
      > aws eks update-kubeconfig --name <name> --region <region>
 
 8. Verify cluster connectivity:
