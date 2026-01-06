@@ -10,6 +10,11 @@
 5. now run eks.yaml file to create the cluster
     
     ## With yaml file
+
+    > eksctl create cluster --config-file=eks-cluster.yaml
+          
+               [ or ] 
+   
     > eksctl create cluster -f eks-cluster.yaml
 
     ## Without yaml --waste
