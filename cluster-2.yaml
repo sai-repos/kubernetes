@@ -11,7 +11,7 @@ vpc:
 managedNodeGroups:
   - name: exp-workers
     instanceType: t3.small
-    capacityType: SPOT
+    spot: true
     desiredCapacity: 3
     minSize: 2
     maxSize: 5
