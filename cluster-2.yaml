@@ -2,10 +2,14 @@ apiversion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: Expense-Project
+  name: Expense
   region: ap-south-1
+  labels:
+    Project: expense
+    Environment: dev
 
 vpc:
+  -name: exp-vpc
   cidr: 10.0.0.0/16
 
 managedNodeGroups:
