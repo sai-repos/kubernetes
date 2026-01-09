@@ -1,0 +1,35 @@
+---
+apiversion : eksctl.io/v1alpha5
+kind: ClusterConfig  
+
+metadata:
+  name: expense
+  region: ap-south-1
+  labels:
+    Project: expense
+    Environment: dev
+
+vpc:
+  -name: exp-vpc
+  cidr: 10.0.0.0/16
+
+managedNodeGroups:
+  - name: exp-workers
+    instanceType: m5.large
+    desiredCapacity: 3
+    minSize: 2
+    maxSize: 5
+    spot: true  ## Enable spot instances, may get deleted when AWS needs capacity
+    labels:
+      Project: expense
+
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+        externalDNS: true
+        ebs: true
+        albIngress: true
+
+    ssh:
+      allow: true
+      publicKeyName: t3
