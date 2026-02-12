@@ -1,0 +1,60 @@
+apiversion : eksctl.io/v1alpha5
+kind: ClusterConfig  
+
+metadata:
+  name: Expense
+  region: ap-south-1
+  #version: "1.34"   #--> EKS version optional, default is the latest available
+
+iam:
+  withOIDC: true # Enable IAM OIDC provider   
+
+
+managedNodeGroups:
+  - name: exp-workers
+    instanceType: t3.small
+    minSize: 2  
+    maxSize: 5
+    desiredCapacity: 3
+    spot: true  ## Enable spot instances, may get deleted when AWS needs capacity
+
+    ssh:
+      allow: true
+      publicKeyName: t3
+
+    labels:
+      node-type: managed
+      instance-type: spot
+
+
+    tags:
+      nodegroup-role: worker
+
+addons:
+  - name: vpc-cni  #assigns IPs to pods
+  - name: kube-proxy #networking between pods, enables service  & traffic routing 
+  - name: coredns      #service discovery for pods
+  - name: aws-ebs-csi-driver  #for EBS volumes in EKS
+  - name: aws-load-balancer-controller #for Alb/NLB load balancing in EKS
+
+# dont use last 2 -- throwing errors
+# 1st three are installed by default. other are optional,but may be required for specific use cases.
+# No need to mention like this.
+
+### what is OIDC 
+
+#Suppose:
+
+# You deploy a pod that needs access to S3
+
+# Instead of giving full S3 access to all nodes,
+
+# You:
+
+# 1. Create IAM role with S3 policy
+
+# 2. Attach it to a Kubernetes ServiceAccount
+
+# 3. Pod uses that ServiceAccount
+
+# 4. Only that pod can access S3.

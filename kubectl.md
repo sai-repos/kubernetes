@@ -17,3 +17,11 @@
 
  o/p:   Client Version: v1.35.0
         Kustomize Version: v5.7.1
+
+
+## Steps
+
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin/kubectl
+kubectl version --client

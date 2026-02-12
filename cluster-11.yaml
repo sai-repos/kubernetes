@@ -1,13 +1,14 @@
-apiversion: eksctl.io/v1alpha5
+apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: Expense-Project
+  name: Expense-Cluster
   region: ap-south-1
+  #version: "1.34"   #--> EKS version optional, default is the latest available
 
 vpc:
-  cidr: 10.0.0.0/16
-
+  cidr: "10.0.0.0/18"
+  
 managedNodeGroups:
   - name: exp-workers
     instanceType: t3.small

@@ -9,7 +9,9 @@
 
 4. Install KUBECTL
 
-5. now run eks.yaml file to create the cluster
+5. Login using --->> aws configure  or  --->> attach IAM role to the Master server
+
+    now run eks.yaml file to create the cluster
 
     ## With yaml file
 
@@ -38,3 +40,21 @@
 9. To delete the cluster
 
  > eksctl delete cluster -f eks-cluster.yaml
+
+ without file 
+  > eksctl delete cluster   --name sai-eks-cluster  --region ap-south-1
+
+if u dont know the name of the cluster
+  > eksctl get cluster
+  
+  done
+
+or else u can delete nodes first
+  >>> aws eks list-nodegroups --cluster-name sai-eks-cluster
+ 
+ >>> aws eks delete-nodegroup \
+  --cluster-name sai-eks-cluster \
+  --nodegroup-name sai-managed-ng
+
+
+
