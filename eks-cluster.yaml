@@ -5,8 +5,30 @@ metadata:
   name: expense
   region: ap-south-1
 
+iam:
+  withOIDC: true
+  withAddonPolicies:
+    autoScaler: true
+    externalDNS: true
+    ebs: true
+    albIngress: true
+
 managedNodeGroups:
   - name: exp-workers
-    instanceType: m5.large
-    desiredCapacity: 4
-    spot: true  ## Enable spot instances, may get deleted when AWS needs capacity
+    instanceType: t3.small
+    minSize: 2  
+    maxSize: 5
+    desiredCapacity: 3
+    spot: true
+
+    ssh:
+      allow: true
+      publicKeyName: t3
+
+    labels:
+      node-type: managed
+      instance-type: spot
+
+
+    tags:
+      nodegroup-role: worker
